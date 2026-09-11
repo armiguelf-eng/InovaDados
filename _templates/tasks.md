@@ -1,3 +1,11 @@
+id: 
+tipo: tasks
+card: 
+ciclo: 
+nucleo: 
+status: 
+link (Notion):
+
 # Fases
 ## Fase 1 — <nome>
 - [ ] Task A
