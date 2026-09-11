@@ -1,6 +1,6 @@
 ---
 id: 
-tipo: análise swot
+tipo: análise SWOT
 card: 
 ciclo: 
 nucleo: 
