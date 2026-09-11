@@ -13,25 +13,13 @@ status: aberto
 
 # <Título do Card>
 
-## Por quê
+Por quê: <Por que essa iniciativa existe>
 
-<Por que essa iniciativa existe>
+Objetivo deste card:
 
-## Objetivo deste card
-
-
-
-## Sucesso
-
-<Como saber que o card funcionou>
-
-
+Métricas de Sucesso: <Como saber que o card funcionou>
 
 ## DOD
+Básico:
 
-**Básico:**
--
--
-
-**Outlier:**
--
+Outlier:
