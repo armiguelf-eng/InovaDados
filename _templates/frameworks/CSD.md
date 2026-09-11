@@ -1,16 +1,11 @@
 ---
-id: fw-matriz-csd
-tipo: framework
-formato: matriz
-data: 
-iniciativa: 
+id: 
+tipo: matriz CSD
 card: 
 ciclo: 
 nucleo: 
-eixo: 
-origem: [bm-...]
-estado: rascunho
-validado_por: 
+status: 
+link (Notion):
 ---
 
 # Matriz CSD
