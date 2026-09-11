@@ -1,14 +1,11 @@
 ---
+id: 
 tipo: card
-iniciativa:
 card: 
-ciclo:
+ciclo: 
 nucleo: 
-notion:
-ci: 
-inicio:
-prazo: 
-status: aberto
+status: 
+link (Notion):
 ---
 
 # <Título do Card>
