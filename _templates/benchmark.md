@@ -1,18 +1,15 @@
 ---
 id: 
 tipo: benchmark
-data: 
-iniciativa: 
 card: 
 ciclo: 
 nucleo: 
-eixo: 
-fonte: 
-interlocutor:
-modalidade: 
 status: 
-origem: 
-gravacao: 
+link (Notion):
+entrevistador:
+entrevistado:
+data: 
+link (Call):
 ---
 
 # Perguntas
