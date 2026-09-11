@@ -36,16 +36,6 @@ inovacao/
 │  ├─ valida_frontmatter.py        checagem estrutural, roda no CI
 │  └─ gera_indice.py               reescreve as tabelas de índice
 └─ iniciativas/
-   └─ pricing-ndados/
-      ├─ README.md                 índice dos cards
-      ├─ modelo/                   ARTEFATO VIVO, atravessa cards
-      │  ├─ especificacao.md
-      │  ├─ decisoes/
-      │  │  └─ adr-001-desacoplar-do-tempo.md
-      │  └─ skill/
-      │     ├─ SKILL.md
-      │     └─ CONSTRUCAO.md
-      └─ cards/
 ```
 
 Pasta por iniciativa e por card.
