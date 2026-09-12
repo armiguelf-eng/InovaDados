@@ -1,6 +1,6 @@
 ---
 id: 
-tipo: resumo exeutivo
+tipo: resumo-executivo
 card: 
 ciclo: 
 nucleo: 

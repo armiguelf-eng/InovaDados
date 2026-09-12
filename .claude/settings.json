@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR:-.}/.claude/skills/sincronizar-readme/scripts/verificar_readme.py\" --hook --raiz \"${CLAUDE_PROJECT_DIR:-.}\"",
+            "timeout": 30,
+            "statusMessage": "Conferindo se o README ainda bate com o repositório"
+          }
+        ]
+      }
+    ]
+  }
+}

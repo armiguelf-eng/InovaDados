@@ -23,12 +23,12 @@ Marca d'água da Poli Júnior em todas as páginas, capa inclusive.
 
 ## Passo a passo
 
-### 1. Identifique a pasta do card
+### 1. Identifique a pasta da iniciativa
 
-O alvo é uma pasta `iniciativas/<iniciativa>/cards/<ciclo>-<tipo>/` que contenha
-`card.md`. Se o usuário citar só o nome da iniciativa e houver mais de um card,
-**pergunte qual** — não escolha o mais recente por conta própria; cards fechados
-são imutáveis e independentes, e o relatório é por card.
+O alvo é uma pasta `iniciativas/<iniciativa>/` que contenha `card.md`. Uma pasta
+de iniciativa corresponde a um card do Notion, e o relatório é por iniciativa.
+Se o usuário citar um nome que não casa com nenhuma pasta, **pergunte qual** —
+não escolha a mais recente por conta própria.
 
 ### 2. Verifique se o card está de fato fechado
 
@@ -46,7 +46,7 @@ não fechado gera um relatório que documenta trabalho inacabado.
 
 ```bash
 python3 .claude/skills/documentar-iniciativa/scripts/gerar_relatorio.py \
-  iniciativas/<iniciativa>/cards/<ciclo>-<tipo>
+  iniciativas/<iniciativa>
 ```
 
 Opções: `-o <dir>` (saída; padrão `<card>/relatorio`), `--titulo` (sobrescreve o

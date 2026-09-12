@@ -9,7 +9,10 @@
 *.fdb_latexmk
 
 # exceção: a marca d'água é asset, não saída de build
-!templates/**/logo-polijunior.pdf
+!templates/**/logo-polijunior.png
+
+# configuração local do vault Obsidian
+.obsidian/
 
 # macOS
 .DS_Store

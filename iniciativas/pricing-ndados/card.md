@@ -1,7 +1,7 @@
 ---
 id: 001-A
 tipo: card
-card: experimento
+card: pricing-ndados
 ciclo: 2026.1
 nucleo: NDados
 status: Finalizado

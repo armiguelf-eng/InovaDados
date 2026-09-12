@@ -7,7 +7,6 @@ nucleo:
 status: 
 link (Notion):
 ---
-
 # <Título do Card>
 
 Por quê: <Por que essa iniciativa existe>

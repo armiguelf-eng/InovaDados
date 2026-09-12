@@ -1,11 +1,12 @@
 ---
 id: 
-tipo: matriz CSD
+tipo: csd
 card: 
 ciclo: 
 nucleo: 
 status: 
 link (Notion):
+origem: 
 ---
 
 # Matriz CSD
