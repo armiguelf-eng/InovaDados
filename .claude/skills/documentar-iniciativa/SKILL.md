@@ -1,6 +1,6 @@
 ---
 name: documentar-iniciativa
-description: Gera o relatório LaTeX de uma iniciativa do InovaDados a partir de um card fechado (card.md, resumoexecutivo.md, benchmarks/bm-*.md, discovery/fw-*.md), com marca d'água da Poli Júnior, capa, sumário, resumo executivo, introdução, atas transcritas e frameworks. Use quando o usuário pedir para "documentar a iniciativa", "gerar o relatório", "fechar em PDF", "exportar o card para LaTeX", "montar o documento final" ou apontar para uma pasta de card concluído.
+description: Gera o relatório LaTeX de uma iniciativa do InovaDados a partir de um card fechado (materials/card.md, artefatos/resumoexecutivo.md, artefatos/benchmarks/<primeiro-nome>-bench.md, artefatos/discovery/<FRAMEWORK>.md), com marca d'água da Poli Júnior, capa, sumário, resumo executivo, introdução, atas transcritas e frameworks. Use quando o usuário pedir para "documentar a iniciativa", "gerar o relatório", "fechar em PDF", "exportar o card para LaTeX", "montar o documento final" ou apontar para uma pasta de card concluído.
 ---
 
 # Documentar iniciativa em LaTeX
@@ -14,10 +14,10 @@ O `.tex` é o artefato versionável; o PDF é saída derivada e fica fora do git
 | --- | --- |
 | 1 — capa | nome da iniciativa centralizado + `Inovação <ciclo>` |
 | 2 — sumário | automático |
-| 3 — resumo executivo | `resumoexecutivo.md` |
-| 4 — introdução | `templates/introducao.md`, marcadores preenchidos do `card.md` |
-| 5+ — atas | `benchmarks/bm-*.md`, em ordem de ID (omitida se não houver) |
-| depois — frameworks | `discovery/fw-*.md`, em ordem de ID |
+| 3 — resumo executivo | `artefatos/resumoexecutivo.md` |
+| 4 — introdução | `artefatos/introducao.md`, ou `templates/introducao.md` se ausente; marcadores preenchidos do `card.md` |
+| 5+ — atas | `artefatos/benchmarks/<primeiro-nome>-bench.md`, em ordem de ID (omitida se não houver) |
+| depois — frameworks | `artefatos/discovery/<FRAMEWORK>.md`, em ordem de ID |
 
 Marca d'água da Poli Júnior em todas as páginas, capa inclusive.
 
@@ -25,7 +25,7 @@ Marca d'água da Poli Júnior em todas as páginas, capa inclusive.
 
 ### 1. Identifique a pasta da iniciativa
 
-O alvo é uma pasta `iniciativas/<iniciativa>/` que contenha `card.md`. Uma pasta
+O alvo é uma pasta `iniciativas/<iniciativa>/` que contenha `materials/card.md`. Uma pasta
 de iniciativa corresponde a um card do Notion, e o relatório é por iniciativa.
 Se o usuário citar um nome que não casa com nenhuma pasta, **pergunte qual** —
 não escolha a mais recente por conta própria.
@@ -34,10 +34,10 @@ não escolha a mais recente por conta própria.
 
 Antes de gerar, confira com `cat`/`grep` — o gerador avisa, mas não corrige:
 
-- `resumoexecutivo.md` existe e está preenchido (limite de 100 palavras);
+- `artefatos/resumoexecutivo.md` existe e está preenchido (limite de 100 palavras);
 - nenhuma ata tem `# Rascunho` com conteúdo (o gerador o remove do PDF e avisa);
-- `tasks.md` sem checkbox aberto (`grep -c '\- \[ \]' tasks.md`);
-- todo `fw-*.md` declara `origem` com os IDs das atas que o embasam.
+- `materials/tasks.md` sem checkbox aberto (`grep -c '\- \[ \]' materials/tasks.md`);
+- todo framework em `artefatos/discovery/` declara `origem` com os IDs das atas que o embasam.
 
 Se algo falhar, **relate ao usuário e pergunte** se gera assim mesmo. Um card
 não fechado gera um relatório que documenta trabalho inacabado.
@@ -71,7 +71,7 @@ finja que o PDF saiu.
 Leia o `.tex` gerado. Os erros que aparecem na prática:
 
 - seção `% seção vazia` — o markdown de origem estava vazio;
-- `**[preencher: X]**` na introdução — marcador sem valor no `card.md`;
+- `**[preencher: X]**` na introdução — marcador sem valor no `materials/card.md`;
 - placeholders do template (`<Título do Card>`, `<Resposta>`) que vazaram para
   o relatório porque ninguém preencheu o markdown.
 

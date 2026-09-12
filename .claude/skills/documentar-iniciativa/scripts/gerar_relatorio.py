@@ -4,7 +4,8 @@ Gera o relatório LaTeX de um card fechado do InovaDados.
 
     python3 gerar_relatorio.py <pasta-do-card> [-o <saida>] [--subtitulo "Inovação 2026.2"]
 
-Lê `card.md`, `resumoexecutivo.md`, `benchmarks/bm-*.md` e `discovery/fw-*.md`,
+Lê `materials/card.md`, `artefatos/resumoexecutivo.md`, `artefatos/benchmarks/<primeiro-nome>-bench.md`
+e `artefatos/discovery/<FRAMEWORK>.md`,
 converte cada um para LaTeX e monta a árvore de saída:
 
     <saida>/relatorio.tex
@@ -232,10 +233,25 @@ def bloco_metadados(meta: dict, chaves) -> str:
     return "\\metadados{" + r" \\ ".join(itens) + "}\n\n"
 
 
+def achar_doc(pasta: Path, *relativos):
+    """Primeiro caminho existente, na ordem dada.
+
+    O layout da iniciativa separa insumo (`materials/`) de produto
+    (`artefatos/`); o caminho solto na raiz fica como fallback para as pastas
+    criadas antes dessa separacao.
+    """
+    for rel in relativos:
+        caminho = pasta / rel
+        if caminho.exists():
+            return caminho
+    return None
+
+
 def gerar_resumo(pasta: Path, avisos):
-    caminho = pasta / "resumoexecutivo.md"
-    if not caminho.exists():
-        avisos.append("resumoexecutivo.md não encontrado — card não está fechado.")
+    caminho = achar_doc(pasta, "artefatos/resumoexecutivo.md", "resumoexecutivo.md")
+    if caminho is None:
+        avisos.append(
+            "artefatos/resumoexecutivo.md não encontrado — card não está fechado.")
         return "\\section{Resumo Executivo}\n\n\\emph{Resumo executivo ausente.}\n"
     _, corpo = ler_documento(caminho)
     corpo = corpo.strip()
@@ -250,8 +266,8 @@ def gerar_resumo(pasta: Path, avisos):
 
 def gerar_introducao(pasta: Path, raiz: Path, meta_card: dict, corpo_card: str,
                      iniciativa: str, avisos):
-    local = pasta / "introducao.md"
-    modelo = local if local.exists() else achar_template(raiz, "introducao.md")
+    local = achar_doc(pasta, "artefatos/introducao.md", "introducao.md")
+    modelo = local or achar_template(raiz, "introducao.md")
     if modelo is None or not modelo.exists():
         avisos.append("templates/introducao.md não encontrado — introdução omitida.")
         return ""
@@ -283,10 +299,14 @@ def gerar_introducao(pasta: Path, raiz: Path, meta_card: dict, corpo_card: str,
 
 
 def gerar_atas(pasta: Path, avisos):
-    arquivos = sorted((pasta / "benchmarks").glob("bm-*.md")) \
-        if (pasta / "benchmarks").is_dir() else []
+    dir_atas = achar_doc(pasta, "artefatos/benchmarks", "benchmarks")
+    # A ata é nomeada pelo entrevistado (`<primeiro-nome>-bench.md`), então a
+    # ordem alfabética do arquivo não é a ordem de ID que o relatório promete.
+    # Ordena pelo `id` do frontmatter, caindo no nome só se o id faltar.
+    arquivos = sorted(dir_atas.glob("*-bench.md")) if dir_atas else []
+    arquivos.sort(key=lambda c: (ler_documento(c)[0].get("id") or c.stem))
     if not arquivos:
-        avisos.append("Nenhuma ata em benchmarks/ — seção de atas omitida.")
+        avisos.append("Nenhuma ata em artefatos/benchmarks/ — seção de atas omitida.")
         return ""
 
     # Cada ata é uma \section própria, iniciando em página nova: ela é um
@@ -317,10 +337,14 @@ def gerar_atas(pasta: Path, avisos):
 
 
 def gerar_frameworks(pasta: Path, avisos):
-    arquivos = sorted((pasta / "discovery").glob("fw-*.md")) \
-        if (pasta / "discovery").is_dir() else []
+    dir_fw = achar_doc(pasta, "artefatos/discovery", "discovery")
+    # O framework é nomeado pelo próprio nome (`CSD.md`, `SWOT.md`), sem prefixo
+    # comum para filtrar — pega todo .md da pasta e ordena pelo `id`.
+    arquivos = sorted(dir_fw.glob("*.md")) if dir_fw else []
+    arquivos.sort(key=lambda c: (ler_documento(c)[0].get("id") or c.stem))
     if not arquivos:
-        avisos.append("Nenhum framework em discovery/ — seção de frameworks omitida.")
+        avisos.append(
+            "Nenhum framework em artefatos/discovery/ — seção de frameworks omitida.")
         return ""
 
     partes = []
@@ -402,9 +426,11 @@ def main():
     raiz = achar_raiz(pasta)
     avisos = []
 
-    caminho_card = pasta / "card.md"
-    if not caminho_card.exists():
-        raise SystemExit(f"ERRO: {caminho_card} não existe — isso não é a pasta de um card.")
+    caminho_card = achar_doc(pasta, "materials/card.md", "card.md")
+    if caminho_card is None:
+        raise SystemExit(
+            f"ERRO: {pasta / 'materials' / 'card.md'} não existe — "
+            "isso não é a pasta de um card.")
     meta_card, corpo_card = ler_documento(caminho_card)
 
     logo = achar_template(raiz, "logo-polijunior.png", "logo-polijunior.pdf",

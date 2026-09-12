@@ -42,13 +42,20 @@ Um card do Notion corresponde a uma pasta de iniciativa. Tudo que aquele card pr
 
 ```
 iniciativas/<iniciativa>/
-├─ card.md
-├─ tasks.md
-├─ resumoexecutivo.md
-├─ benchmarks/bm-*.md
-├─ discovery/fw-*.md
+├─ materials/          insumo: o que entrou no card
+│  ├─ card.md
+│  └─ tasks.md
+├─ artefatos/          produto: o que o card gerou
+│  ├─ resumoexecutivo.md
+│  ├─ introducao.md
+│  ├─ benchmarks/<primeiro-nome>-bench.md
+│  └─ discovery/<FRAMEWORK>.md
 └─ relatorio/          saída do gerador LaTeX
 ```
+
+`materials/` guarda o que descreve o card e veio do Notion; `artefatos/` guarda o
+que a iniciativa produziu e será lido daqui a um ano. `relatorio/` é saída
+derivada e fica fora dos dois.
 
 ## Fronteira da iniciativa
 
@@ -113,10 +120,12 @@ link (Call):
 
 ## Convenções
 
-- Pasta de iniciativa: slug curto, ex. `pricing-ndados`. Uma pasta por card do Notion.
-- Nomes de arquivo e pasta: minúsculas, sem acento, separados por hífen.
-- Prefixos de ID: `bm-` benchmark, `fw-` framework. Documentos únicos da iniciativa (`card`, `tasks`, `resumoexecutivo`) usam o próprio nome da pasta.
-- Referência entre documentos sempre por ID, nunca por caminho ou título.
+- Pasta de iniciativa: slug curto, ex. `pricing-ndados`. Uma pasta por card do Notion, com `materials/` e `artefatos/` dentro.
+- Nomes de arquivo e pasta: minúsculas, sem acento, separados por hífen. Única exceção: o framework, que usa a sigla como o mercado a escreve (`CSD.md`, `SWOT.md`).
+- Nome da ata: `<primeiro-nome-do-entrevistado>-bench.md`, ex. `rafael-bench.md`. Dois entrevistados de mesmo primeiro nome no mesmo card ganham sobrenome (`rafael-toledo-bench.md`).
+- Nome do framework: o nome do próprio framework, ex. `CSD.md`, `SWOT.md`. Um por tipo por card.
+- Prefixos de ID: `bm-` benchmark, `fw-` framework. O prefixo vive no campo `id`, não no nome do arquivo — os dois deixaram de coincidir de propósito, para que o arquivo seja legível na pasta e o ID continue estável. Documentos únicos da iniciativa (`card`, `tasks`, `resumoexecutivo`) usam o próprio nome da pasta.
+- Referência entre documentos sempre por ID, nunca por caminho ou título. Renomear um arquivo nunca quebra uma referência.
 - Uma pergunta por heading nas atas.
 
 ## Relatório da iniciativa
@@ -133,10 +142,10 @@ python3 .claude/skills/documentar-iniciativa/scripts/gerar_relatorio.py \
 | --- | --- |
 | 1 — capa | nome da iniciativa + `Inovação <ciclo>` |
 | 2 | sumário |
-| 3 | `resumoexecutivo.md` |
-| 4 | `templates/introducao.md`, preenchida a partir do `card.md` |
-| 5+ | uma página por ata (`benchmarks/bm-*.md`) |
-| depois | uma página por framework (`discovery/fw-*.md`) |
+| 3 | `artefatos/resumoexecutivo.md` |
+| 4 | `artefatos/introducao.md`, ou `templates/introducao.md` se a iniciativa não tiver a sua, preenchida a partir do `card.md` |
+| 5+ | uma página por ata (`artefatos/benchmarks/<primeiro-nome>-bench.md`) |
+| depois | uma página por framework (`artefatos/discovery/<FRAMEWORK>.md`) |
 
 Marca d'água da Poli Júnior em todas as páginas, a partir de
 `templates/logo-polijunior.png`.
@@ -164,13 +173,13 @@ pdflatex relatorio.tex && pdflatex relatorio.tex
 
 Abrir card:
 
-1. Criar `iniciativas/<iniciativa>/`.
-2. Copiar `templates/card.md` e `templates/tasks.md` para dentro, preencher o frontmatter.
+1. Criar `iniciativas/<iniciativa>/`, com `materials/` e `artefatos/` dentro.
+2. Copiar `templates/card.md` e `templates/tasks.md` para `materials/`, preencher o frontmatter.
 3. Colar o link do card no Notion em `link (Notion)`.
 
-Durante o card: cada call vira um `benchmarks/bm-*.md`; cada framework derivado vira um `discovery/fw-*.md` com `origem` apontando para os benchmarks.
+Durante o card: cada call vira um `artefatos/benchmarks/<primeiro-nome>-bench.md`; cada framework derivado vira um `artefatos/discovery/<FRAMEWORK>.md` com `origem` apontando para os benchmarks.
 
-Fechar card: `resumoexecutivo.md` preenchido, `tasks.md` sem pendência aberta, seção `# Rascunho` das atas removida, relatório gerado.
+Fechar card: `artefatos/resumoexecutivo.md` preenchido, `tasks.md` sem pendência aberta, seção `# Rascunho` das atas removida, relatório gerado.
 
 Toda mudança entra por pull request, inclusive ata nova. Na descrição do PR: link do card no Notion e IDs afetados.
 
