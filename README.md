@@ -33,7 +33,7 @@ InovaDados/
 │     └─ LEIA-ME.md
 ├─ .claude/skills/
 │  └─ documentar-iniciativa/   gera o relatório LaTeX de um card fechado
-└─ iniciativas/          ainda vazio — criado com a primeira iniciativa
+└─ iniciativas/
 ```
 
 Um card do Notion corresponde a uma pasta. Tudo que aquele card produziu fica dentro dela:
