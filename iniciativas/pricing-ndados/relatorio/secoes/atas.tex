@@ -1,0 +1,124 @@
+% Gerado por .claude/skills/documentar-iniciativa — NÃO EDITE À MÃO.
+% A fonte é o markdown do card; regenere após alterá-lo.
+
+\clearpage
+\section{Ata bm-001 — Rafael Toledo — Núcleo de Dados, EJ Sigma (fictícia)}
+
+\metadados{\textbf{entrevistado:} Rafael Toledo — Núcleo de Dados, EJ Sigma (fictícia) \\ \textbf{entrevistador:} Helena Braga \\ \textbf{data:} 2026-03-04}
+
+
+\subsection{Perguntas}
+
+\subsubsection{Como vocês chegam ao preço de um projeto de dados hoje?}
+
+Partimos de uma estimativa de horas por perfil — analista, engenheiro, gerente — e multiplicamos por uma taxa interna. A taxa é revisada uma vez por ano, no planejamento. Em cima disso entra um ajuste que o gerente comercial faz “no olho”, que ele chama de fator de dor: o quanto o cliente parece sofrer com o problema.
+
+\subsubsection{Esse ajuste no olho é registrado em algum lugar?}
+
+Não. É a maior fragilidade do processo. Quando o gerente sai, o critério sai com ele. Já aconteceu de dois projetos quase idênticos saírem com 40\% de diferença de preço em semestres seguidos, e ninguém conseguiu reconstruir por quê.
+
+\subsubsection{Vocês diferenciam o preço por tipo de projeto?}
+
+Diferenciamos por duração, não por natureza. Na prática, um dashboard e um modelo preditivo de mesma duração saem pelo mesmo preço, o que é claramente errado — o preditivo consome muito mais sênior e tem risco de não convergir.
+
+\subsubsection{O que vocês já tentaram e não funcionou?}
+
+Tentamos precificação por valor gerado, pedindo ao cliente a estimativa de ganho. Não funcionou: o cliente não tem esse número, e quando tem não compartilha. Voltamos para custo mais margem em dois meses.
+
+\subsubsection{Como vocês tratam projeto de escopo aberto?}
+
+Mal. Fechamos preço fixo e absorvemos o estouro. Foi a maior fonte de prejuízo do último ciclo.
+
+\subsection{Síntese}
+
+\subsubsection{Objeções}
+
+\begin{itemize}
+  \item Precificação por valor gerado foi testada e abandonada: depende de um número que o cliente não tem ou não compartilha.
+  \item Resistência interna a “engessar” o julgamento comercial em fórmula.
+\end{itemize}
+
+\subsubsection{Surpresas}
+
+\begin{itemize}
+  \item A taxa interna é revisada só uma vez por ano, mesmo com o custo do time mudando a cada virada de time.
+  \item Duração é o único eixo de diferenciação; natureza do projeto não entra.
+\end{itemize}
+
+\subsubsection{Oportunidades}
+
+\begin{itemize}
+  \item O fator de dor é tácito e não registrado — transformá-lo em parâmetro explícito resolve o problema de sucessão que eles descreveram.
+  \item Separar preço por natureza do projeto é ganho imediato e barato.
+\end{itemize}
+
+\subsubsection{Ameaças}
+
+\begin{itemize}
+  \item Escopo aberto com preço fixo é a fonte de prejuízo deles; qualquer modelo nosso que ignore isso repete o erro.
+  \item Modelo percebido como camisa de força é abandonado pelo comercial em poucos meses.
+\end{itemize}
+
+
+\clearpage
+\section{Ata bm-002 — Marina Cerqueira — Consultoria Delta (fictícia)}
+
+\metadados{\textbf{entrevistado:} Marina Cerqueira — Consultoria Delta (fictícia) \\ \textbf{entrevistador:} Helena Braga \\ \textbf{data:} 2026-03-11}
+
+
+\subsection{Perguntas}
+
+\subsubsection{Vocês usam um modelo formal de precificação?}
+
+Usamos, há três anos. É uma planilha com três fatores: complexidade técnica, volume de esforço e risco. Cada fator vira uma nota de 1 a 5, e o produto das três entra numa tabela de faixas. O comercial não define preço, define as notas.
+
+\subsubsection{Como vocês evitam que o comercial infle as notas?}
+
+A nota de risco é dada pelo time técnico, não pelo comercial. Esse foi o ajuste que fez o modelo parar de ser burlado. Antes, quem vendia dava as três notas e o resultado sempre caía na faixa que ele já tinha na cabeça.
+
+\subsubsection{O modelo acerta?}
+
+Acerta o suficiente. Comparamos o preço do modelo com o preço fechado e ficamos dentro de 10\% na maioria dos casos. Onde ele erra feio é em projeto de descoberta, onde o escopo muda no meio — aí nenhuma fórmula salva.
+
+\subsubsection{Quanto tempo levou para o time confiar no modelo?}
+
+Cerca de dois ciclos. O que destravou foi rodar o modelo em paralelo, sem poder de veto, durante um semestre inteiro. As pessoas viram que ele não estava longe do que elas já fariam, e aí pararam de brigar.
+
+\subsubsection{Se fossem começar hoje, o que fariam diferente?}
+
+Definiríamos o piso de margem antes da fórmula, não depois. Passamos um ano com um modelo que conseguia sugerir preço abaixo do nosso custo em certas combinações de nota, e só descobrimos porque alguém reparou.
+
+\subsubsection{Qual o custo de manter isso?}
+
+Baixo, mas não zero. Uma revisão de pesos por ciclo, olhando os desvios acumulados. Quem larga a revisão volta ao chute em um ano.
+
+\subsection{Síntese}
+
+\subsubsection{Objeções}
+
+\begin{itemize}
+  \item Modelo formal só é aceito depois de rodar em paralelo, sem poder de veto, por um ciclo inteiro — adoção direta gera resistência.
+  \item Nenhum modelo resolve projeto de descoberta com escopo móvel.
+\end{itemize}
+
+\subsubsection{Surpresas}
+
+\begin{itemize}
+  \item A separação de quem dá cada nota importa mais que a fórmula: risco avaliado pelo time técnico foi o que impediu a manipulação.
+  \item Piso de margem definido depois da fórmula deixou um ano de propostas abaixo do custo passarem despercebidas.
+\end{itemize}
+
+\subsubsection{Oportunidades}
+
+\begin{itemize}
+  \item Estrutura de três fatores com nota de 1 a 5 é simples o bastante para o nosso comercial operar sem treinamento longo.
+  \item Revisão de pesos por ciclo cabe no nosso calendário de virada de time.
+\end{itemize}
+
+\subsubsection{Ameaças}
+
+\begin{itemize}
+  \item Sem revisão periódica, o modelo apodrece e o time volta ao chute em um ano.
+  \item Se o mesmo papel der as três notas, o modelo vira justificativa do preço que já se queria praticar.
+\end{itemize}
+

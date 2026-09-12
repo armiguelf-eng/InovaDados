@@ -1,0 +1,99 @@
+% =============================================================================
+%  Relatório de Iniciativa — InovaDados / Poli Júnior
+%
+%  NÃO EDITE A CÓPIA GERADA. Edite este template em templates/latex/relatorio.tex
+%  e regenere com a skill `documentar-iniciativa`.
+%
+%  Compilar (duas vezes, para o sumário):
+%      pdflatex relatorio.tex && pdflatex relatorio.tex
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=2.5cm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+% --- identidade -------------------------------------------------------------
+\definecolor{pjazul}{HTML}{0B2C5B}
+\definecolor{pjcinza}{HTML}{5A6472}
+
+% --- variáveis preenchidas pelo gerador -------------------------------------
+\newcommand{\nomeIniciativa}{Modelo de Precificação NDados}
+\newcommand{\subtituloRelatorio}{Inovação 2026.1}
+\newcommand{\marcaDagua}{assets/logo-polijunior.png}   % copiado para assets/ pelo gerador
+
+% --- marca d'água em todas as páginas ---------------------------------------
+% Opacidade via TikZ: funciona em pdflatex, xelatex e lualatex sem o pacote
+% `transparent`, que depende de driver.
+\AddToShipoutPictureBG{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[opacity=0.06] at (current page.center)
+      {\includegraphics[width=0.65\paperwidth]{\marcaDagua}};
+  \end{tikzpicture}%
+}
+
+% --- cabeçalho e rodapé -----------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\color{pjcinza}\nomeIniciativa}
+\fancyhead[R]{\small\color{pjcinza}\subtituloRelatorio}
+\fancyfoot[C]{\small\color{pjcinza}\thepage}
+
+% --- títulos ----------------------------------------------------------------
+\titleformat{\section}{\Large\bfseries\color{pjazul}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{pjazul}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{pjcinza}}{}{0em}{}
+\setcounter{secnumdepth}{2}   % subsubsection sem número, como no titleformat acima
+\setcounter{tocdepth}{2}      % sumário até subseção
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.25em,topsep=0.3em}
+
+% --- bloco de metadados de ata / framework ----------------------------------
+\newcommand{\metadados}[1]{%
+  \begingroup\small\color{pjcinza}%
+  \begin{list}{}{\setlength{\leftmargin}{1em}\setlength{\itemsep}{0pt}}
+  \item[] #1
+  \end{list}%
+  \endgroup\vspace{0.6em}%
+}
+
+\begin{document}
+
+% ---------- PÁGINA 1: capa --------------------------------------------------
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+  {\fontsize{30}{36}\selectfont\bfseries\color{pjazul}\nomeIniciativa\par}
+  \vspace{1.2em}
+  {\Large\color{pjcinza}\subtituloRelatorio\par}
+\end{center}
+\vspace*{\fill}
+\clearpage
+
+% ---------- PÁGINA 2: sumário ----------------------------------------------
+\thispagestyle{empty}
+\renewcommand{\contentsname}{Sumário}
+\tableofcontents
+\clearpage
+
+% ---------- PÁGINA 3 em diante: conteúdo gerado -----------------------------
+\setcounter{page}{1}
+\input{secoes/resumoexecutivo}
+\input{secoes/introducao}
+\input{secoes/atas}
+\input{secoes/frameworks}
+
+\end{document}

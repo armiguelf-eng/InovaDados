@@ -1,0 +1,76 @@
+% Gerado por .claude/skills/documentar-iniciativa — NÃO EDITE À MÃO.
+% A fonte é o markdown do card; regenere após alterá-lo.
+
+\clearpage
+\section{Matriz CSD (fw-001)}
+
+\metadados{\textbf{tipo:} csd \\ \textbf{origem:} bm-001, bm-002}
+
+
+\subsubsection{Certezas}
+
+\begin{itemize}
+  \item Precificação baseada em julgamento não registrado não sobrevive à troca de gerente. Os dois entrevistados relataram o mesmo problema de sucessão (\texttt{bm-001}, \texttt{bm-002}).
+  \item Duração isolada não explica preço: projetos de mesma duração e naturezas diferentes consomem perfis de senioridade muito distintos (\texttt{bm-001}).
+  \item Um modelo de três fatores com nota de 1 a 5 é operável por um comercial sem treinamento longo — está em produção há três anos na Delta (\texttt{bm-002}).
+  \item Escopo aberto com preço fixo gera prejuízo recorrente (\texttt{bm-001}).
+  \item O piso de margem precisa ser definido antes da fórmula, não depois (\texttt{bm-002}).
+\end{itemize}
+
+\subsubsection{Suposições}
+
+\begin{itemize}
+  \item A base histórica do NDados tem volume suficiente para calibrar os pesos das quatro esferas. A checar no backtest — desconfiamos que engenharia de dados tenha poucos casos.
+  \item Nosso comercial aceitará operar por notas se o modelo rodar em paralelo por um ciclo, como funcionou na Delta. Nada garante que a cultura seja transferível.
+  \item A dispersão de preço que observamos internamente vem da mesma causa relatada no benchmark, e não de diferenças reais de escopo mal registradas no CRM.
+  \item Separar quem dá a nota de risco de quem dá as outras duas é suficiente para evitar a manipulação no nosso contexto, com um time menor que o da Delta.
+\end{itemize}
+
+\subsubsection{Dúvidas}
+
+\begin{itemize}
+  \item Como precificar projeto de descoberta, em que nenhum dos dois entrevistados tem resposta e ambos relatam prejuízo?
+  \item Qual a periodicidade certa de revisão dos pesos para um núcleo que troca de time duas vezes por ano, contra o ciclo anual da Delta?
+  \item O fator de risco deve multiplicar o preço ou definir um percentual de contingência separado, visível na proposta?
+  \item Quem é o dono do modelo depois que este card fecha?
+\end{itemize}
+
+
+\clearpage
+\section{Análise SWOT (fw-002)}
+
+\metadados{\textbf{tipo:} swot \\ \textbf{origem:} bm-001, bm-002}
+
+
+\subsubsection{Strengths}
+
+\begin{itemize}
+  \item Base histórica de 38 propostas já normalizada por horas-equipe, o que nenhum dos dois núcleos entrevistados tinha ao começar (\texttt{bm-001}, \texttt{bm-002}).
+  \item Núcleo pequeno o bastante para que a separação de papéis na atribuição de notas seja aplicável sem burocracia.
+  \item Time com capacidade técnica para manter o backtest como código, não como planilha.
+\end{itemize}
+
+\subsubsection{Weaknesses}
+
+\begin{itemize}
+  \item A esfera de engenharia de dados está sustentada por poucos casos históricos; os pesos dela são os menos confiáveis do modelo.
+  \item Troca de time duas vezes por ano ameaça a continuidade da revisão de pesos, que a Delta faz com time estável (\texttt{bm-002}).
+  \item Nenhum dono formal designado para o modelo depois do fechamento deste card.
+\end{itemize}
+
+\subsubsection{Opportunities}
+
+\begin{itemize}
+  \item Transformar o fator de dor tácito em parâmetro explícito resolve o problema de sucessão relatado no benchmark e é diferencial frente a EJs comparáveis (\texttt{bm-001}).
+  \item Rodar o modelo em paralelo por um ciclo, sem poder de veto, replica o caminho de adoção que funcionou na Delta e custa pouco (\texttt{bm-002}).
+  \item Preço diferenciado por natureza do projeto abre espaço para subir a margem em preditivo, hoje precificado como dashboard.
+\end{itemize}
+
+\subsubsection{Threats}
+
+\begin{itemize}
+  \item Modelo percebido como camisa de força é abandonado pelo comercial em poucos meses (\texttt{bm-001}).
+  \item Sem revisão periódica dos pesos, o modelo apodrece e o time volta ao chute em um ano (\texttt{bm-002}).
+  \item Projeto de escopo aberto continua sem tratamento: aplicar o modelo nele dá falsa sensação de rigor sobre um número que não se sustenta.
+\end{itemize}
+

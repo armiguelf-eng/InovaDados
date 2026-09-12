@@ -1,0 +1,15 @@
+# Saída derivada do relatório LaTeX — o .tex é o fonte, o PDF não entra no repo
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# exceção: a marca d'água é asset, não saída de build
+!templates/**/logo-polijunior.pdf
+
+# macOS
+.DS_Store
