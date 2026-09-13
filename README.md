@@ -32,6 +32,8 @@ InovaDados/
 │     ├─ relatorio.tex
 │     └─ LEIA-ME.md
 ├─ .claude/skills/
+│  ├─ abrir-iniciativa/        cria a pasta da iniciativa a partir de um card do Notion
+│  ├─ fechar-iniciativa/       fecha a sprint: confere, gera o relatório e anexa o PDF ao card
 │  ├─ documentar-iniciativa/   gera o relatório LaTeX de uma iniciativa fechada
 │  └─ sincronizar-readme/      mantém este README fiel ao repositório
 └─ iniciativas/
@@ -171,15 +173,15 @@ pdflatex relatorio.tex && pdflatex relatorio.tex
 
 ## Fluxo
 
-Abrir card:
+Abrir card, pela skill `abrir-iniciativa`:
 
-1. Criar `iniciativas/<iniciativa>/`, com `materials/` e `artefatos/` dentro.
+1. Criar `iniciativas/<iniciativa>/`, com `materials/` dentro. O slug sai do nome do card no Notion.
 2. Copiar `templates/card.md` e `templates/tasks.md` para `materials/`, preencher o frontmatter.
 3. Colar o link do card no Notion em `link (Notion)`.
 
 Durante o card: cada call vira um `artefatos/benchmarks/<primeiro-nome>-bench.md`; cada framework derivado vira um `artefatos/discovery/<FRAMEWORK>.md` com `origem` apontando para os benchmarks.
 
-Fechar card: `artefatos/resumoexecutivo.md` preenchido, `tasks.md` sem pendência aberta, seção `# Rascunho` das atas removida, relatório gerado.
+Fechar card, pela skill `fechar-iniciativa`, quando o usuário avisar que a sprint acabou: `artefatos/resumoexecutivo.md` preenchido, `tasks.md` sem pendência aberta, seção `# Rascunho` das atas removida, relatório gerado e PDF anexado ao card no Notion.
 
 Toda mudança entra por pull request, inclusive ata nova. Na descrição do PR: link do card no Notion e IDs afetados.
 
@@ -190,6 +192,7 @@ O que este README descreve e ainda não existe:
 - [ ] Template de Learning Card (`aprendizados.md`), para fechar o ciclo de hipótese → observação → aprendizado
 - [ ] Template de ADR, se o repositório passar a guardar registro de decisão
 - [ ] Validador de frontmatter e gerador de índice, rodando no CI a cada PR
+- [ ] `verificar_card.py`, validador de card fechado compartilhado por `fechar-iniciativa` e `documentar-iniciativa` (hoje a conferência é manual nas duas)
 
 ## Dono
 
