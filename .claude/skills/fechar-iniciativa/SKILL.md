@@ -65,8 +65,8 @@ Leia os avisos que o gerador imprime em stderr e repasse todos ao usuário.
 
 ```bash
 cd iniciativas/<slug>/relatorio
-pdflatex -interaction=nonstopmode relatorio.tex >/dev/null
-pdflatex -interaction=nonstopmode relatorio.tex >/dev/null
+lualatex -interaction=nonstopmode relatorio.tex >/dev/null
+lualatex -interaction=nonstopmode relatorio.tex >/dev/null
 ```
 
 Duas passagens: o sumário só resolve na segunda.
@@ -77,7 +77,7 @@ Confirme que o PDF existe e tem tamanho plausível antes de seguir:
 ls -lh iniciativas/<slug>/relatorio/relatorio.pdf
 ```
 
-Sem `pdflatex` instalado, **pare aqui**. Entregue o `.tex`, diga que a compilação
+Sem `lualatex` instalado, **pare aqui**. Entregue o `.tex`, diga que a compilação
 não aconteceu e não tente anexar nada. Não finja que o PDF saiu.
 
 ## Passo 5 — anexar o PDF ao card do Notion

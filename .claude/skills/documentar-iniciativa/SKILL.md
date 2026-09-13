@@ -59,10 +59,10 @@ não no gerador.
 ### 4. Compile, se houver compilador
 
 ```bash
-command -v pdflatex >/dev/null && (cd <saida> && pdflatex -interaction=nonstopmode relatorio.tex >/dev/null && pdflatex -interaction=nonstopmode relatorio.tex >/dev/null)
+command -v lualatex >/dev/null && (cd <saida> && lualatex -interaction=nonstopmode relatorio.tex >/dev/null && lualatex -interaction=nonstopmode relatorio.tex >/dev/null)
 ```
 
-Duas passagens: o sumário só resolve na segunda. Sem `pdflatex` instalado,
+Duas passagens: o sumário só resolve na segunda. Sem `lualatex` instalado,
 entregue o `.tex` e diga ao usuário que a compilação não foi verificada — não
 finja que o PDF saiu.
 

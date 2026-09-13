@@ -11,6 +11,7 @@ converte cada um para LaTeX e monta a árvore de saída:
     <saida>/relatorio.tex
     <saida>/secoes/{resumoexecutivo,introducao,atas,frameworks}.tex
     <saida>/assets/polijunior.png
+    <saida>/assets/fontes/*.ttf
 
 Não compila. O .tex é o fonte; o PDF é saída derivada (ver README do repo).
 """
@@ -370,6 +371,132 @@ def gerar_frameworks(pasta: Path, avisos):
     return "\n".join(partes)
 
 
+
+# --------------------------------------------------------------------------
+# marca d'água
+# --------------------------------------------------------------------------
+
+def _linhas_png(dados: bytes):
+    """Decodifica um PNG e devolve (largura, altura, linhas, bpp, plte, trns).
+
+    Decodificador mínimo em Python puro: o repositório não depende de Pillow e
+    a única coisa que precisamos da imagem é onde a tinta começa e termina.
+    Devolve None para o que não sabemos ler (PNG entrelaçado, 16 bits).
+    """
+    import struct, zlib
+    if dados[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    pos, idat, plte, trns = 8, bytearray(), None, None
+    larg = alt = prof = tipo = entrelace = None
+    while pos + 8 <= len(dados):
+        (tam,) = struct.unpack(">I", dados[pos:pos + 4])
+        marca = dados[pos + 4:pos + 8]
+        bloco = dados[pos + 8:pos + 8 + tam]
+        if marca == b"IHDR":
+            larg, alt, prof, tipo, _, _, entrelace = struct.unpack(">IIBBBBB", bloco[:13])
+        elif marca == b"PLTE":
+            plte = bloco
+        elif marca == b"tRNS":
+            trns = bloco
+        elif marca == b"IDAT":
+            idat += bloco
+        elif marca == b"IEND":
+            break
+        pos += 12 + tam
+    if larg is None or prof != 8 or entrelace != 0:
+        return None
+
+    canais = {0: 1, 2: 3, 3: 1, 4: 2, 6: 4}.get(tipo)
+    if canais is None:
+        return None
+    bpp = canais
+    passo = larg * bpp
+    bruto = zlib.decompress(bytes(idat))
+    if len(bruto) < alt * (passo + 1):
+        return None
+
+    linhas, anterior, i = [], bytearray(passo), 0
+    for _ in range(alt):
+        filtro = bruto[i]; i += 1
+        linha = bytearray(bruto[i:i + passo]); i += passo
+        if filtro == 1:
+            for x in range(bpp, passo):
+                linha[x] = (linha[x] + linha[x - bpp]) & 255
+        elif filtro == 2:
+            for x in range(passo):
+                linha[x] = (linha[x] + anterior[x]) & 255
+        elif filtro == 3:
+            for x in range(passo):
+                a = linha[x - bpp] if x >= bpp else 0
+                linha[x] = (linha[x] + (a + anterior[x]) // 2) & 255
+        elif filtro == 4:
+            for x in range(passo):
+                a = linha[x - bpp] if x >= bpp else 0
+                b = anterior[x]
+                c = anterior[x - bpp] if x >= bpp else 0
+                pr = a + b - c
+                pa, pb, pc = abs(pr - a), abs(pr - b), abs(pr - c)
+                escolha = a if pa <= pb and pa <= pc else (b if pb <= pc else c)
+                linha[x] = (linha[x] + escolha) & 255
+        linhas.append(linha)
+        anterior = linha
+    return larg, alt, linhas, bpp, plte, trns, tipo
+
+
+def bbox_tinta(caminho: Path):
+    """Retângulo ocupado pela tinta do logo, em frações do lado da imagem.
+
+    Devolve (esq, base, dir, topo) — o que sobra de margem transparente ou
+    branca em cada lado. Devolve None quando não dá para medir (formato não
+    lido, imagem sem padding); nesse caso o template usa a imagem inteira.
+    """
+    if caminho.suffix.lower() != ".png":
+        return None
+    try:
+        lido = _linhas_png(caminho.read_bytes())
+    except Exception:
+        return None
+    if lido is None:
+        return None
+    larg, alt, linhas, bpp, plte, trns, tipo = lido
+
+    def invisivel(px):
+        # transparente, ou branco o bastante para não aparecer a 6% de opacidade
+        if tipo == 3:
+            k = px[0]
+            if trns and k < len(trns) and trns[k] <= 10:
+                return True
+            if plte is None:
+                return False
+            r, g, b = plte[3 * k], plte[3 * k + 1], plte[3 * k + 2]
+        elif tipo == 6:
+            if px[3] <= 10:
+                return True
+            r, g, b = px[0], px[1], px[2]
+        elif tipo == 2:
+            r, g, b = px[0], px[1], px[2]
+        elif tipo == 4:
+            if px[1] <= 10:
+                return True
+            r = g = b = px[0]
+        else:
+            r = g = b = px[0]
+        return r > 245 and g > 245 and b > 245
+
+    x0, y0, x1, y1 = larg, alt, -1, -1
+    for y, linha in enumerate(linhas):
+        for x in range(larg):
+            if invisivel(linha[x * bpp:(x + 1) * bpp]):
+                continue
+            if x < x0: x0 = x
+            if x > x1: x1 = x
+            if y < y0: y0 = y
+            if y > y1: y1 = y
+    if x1 < 0 or (x0, y0, x1, y1) == (0, 0, larg - 1, alt - 1):
+        return None
+    return (x0 / larg, (alt - 1 - y1) / alt, (larg - 1 - x1) / larg, y0 / alt)
+
+
 # --------------------------------------------------------------------------
 
 def achar_template(raiz: Path, *nomes):
@@ -452,6 +579,20 @@ def main():
     (saida / "assets").mkdir(parents=True, exist_ok=True)
     shutil.copy2(logo, saida / "assets" / logo.name)
 
+    # As fontes da identidade viajam junto do .tex: o relatório é compilado na
+    # pasta do card, que não enxerga templates/, e elas não estão no TeX Live.
+    dir_fontes = raiz / "templates" / "latex" / "fonts"
+    ttfs = sorted(dir_fontes.glob("*.ttf")) if dir_fontes.is_dir() else []
+    if not ttfs:
+        raise SystemExit(
+            "ERRO: fontes da identidade ausentes.\n"
+            f"  Esperado: {dir_fontes}/*.ttf (Host Grotesk e Nunito Sans)\n"
+            "  Veja templates/latex/LEIA-ME.md.")
+    destino_fontes = saida / "assets" / "fontes"
+    destino_fontes.mkdir(parents=True, exist_ok=True)
+    for ttf in ttfs:
+        shutil.copy2(ttf, destino_fontes / ttf.name)
+
     secoes = {
         "resumoexecutivo": gerar_resumo(pasta, avisos),
         "introducao": gerar_introducao(pasta, raiz, meta_card, corpo_card,
@@ -467,6 +608,18 @@ def main():
             conteudo = "\\clearpage\n" + conteudo if nome == "introducao" else conteudo
         destino.write_text(cabecalho + (conteudo or "% seção vazia\n"), encoding="utf-8")
 
+    # A marca d'água é dimensionada e centrada pela tinta, não pela tela: o
+    # arquivo do logo traz margem transparente, e sem recortá-la a marca
+    # encolhe e sai do centro óptico da página.
+    caixa = bbox_tinta(logo)
+    if caixa:
+        esq, base, dir_, topo = caixa
+        trim_logo = ("trim={%.4f\\larguraLogo} {%.4f\\alturaLogo} "
+                     "{%.4f\\larguraLogo} {%.4f\\alturaLogo},clip,"
+                     % (esq, base, dir_, topo))
+    else:
+        trim_logo = ""
+
     caminho_modelo = achar_template(raiz, "relatorio.tex")
     if caminho_modelo is None:
         raise SystemExit("ERRO: templates/latex/relatorio.tex não encontrado.")
@@ -474,7 +627,9 @@ def main():
     modelo = (modelo
               .replace("<<INICIATIVA>>", escapar(iniciativa))
               .replace("<<SUBTITULO>>", escapar(subtitulo))
-              .replace("<<LOGO>>", "assets/" + logo.name))
+              .replace("<<LOGO>>", "assets/" + logo.name)
+              .replace("<<FONTES>>", "assets/fontes/")
+              .replace("<<TRIMLOGO>>", trim_logo))
     (saida / "relatorio.tex").write_text(modelo, encoding="utf-8")
 
     print(f"Gerado: {saida / 'relatorio.tex'}")

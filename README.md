@@ -30,7 +30,8 @@ InovaDados/
 │  │  └─ SWOT.md
 │  └─ latex/
 │     ├─ relatorio.tex
-│     └─ LEIA-ME.md
+│     ├─ LEIA-ME.md
+│     └─ fonts/              Host Grotesk e Nunito Sans (.ttf, OFL) usadas no relatório
 ├─ .claude/skills/
 │  ├─ abrir-iniciativa/        cria a pasta da iniciativa a partir de um card do Notion
 │  ├─ fechar-iniciativa/       fecha a sprint: confere, gera o relatório e anexa o PDF ao card
@@ -150,24 +151,33 @@ python3 .claude/skills/documentar-iniciativa/scripts/gerar_relatorio.py \
 | depois | uma página por framework (`artefatos/discovery/<FRAMEWORK>.md`) |
 
 Marca d'água da Poli Júnior em todas as páginas, a partir de
-`templates/logo-polijunior.png`.
+`templates/logo-polijunior.png`. O gerador recorta a margem transparente do
+arquivo antes de aplicá-la, então a marca fica centrada e com o mesmo tamanho
+independente do padding do logo.
+
+Formatação fixa: Host Grotesk nos títulos e Nunito Sans no texto corrido, corpo
+11 pt, entrelinha 1,5, A4 retrato, margens de 2,5 cm em cima/embaixo e 3 cm nas
+laterais, texto justificado. Títulos principais e texto em preto; subtítulos em
+`#7239AF`. Cabeçalho vazio; rodapé com a iniciativa à esquerda, o ciclo ao
+centro e o número da página à direita. Detalhes e como ajustar: `templates/latex/LEIA-ME.md`.
 
 A saída vai para `<iniciativa>/relatorio/` e **não é editada à mão**: correção de
 conteúdo vai no markdown da iniciativa, correção de forma vai em
 `templates/latex/relatorio.tex`. O `.tex` é o fonte versionável; o PDF é saída
 derivada e está no `.gitignore`.
 
-Compilar exige duas passagens, para o sumário resolver:
+Compilar exige `lualatex` (não `pdflatex` — as fontes são OpenType) e duas
+passagens, para o sumário resolver:
 
 ```bash
 cd iniciativas/<iniciativa>/relatorio
-pdflatex relatorio.tex && pdflatex relatorio.tex
+lualatex relatorio.tex && lualatex relatorio.tex
 ```
 
 ## Não entra neste repositório
 
 - Planilha viva ou colaborativa (fica no Drive, link no `card.md`)
-- PDF, deck ou binário compilado (o fonte entra, a saída não) — única exceção: `templates/logo-polijunior.png`, a marca d'água do relatório
+- PDF, deck ou binário compilado (o fonte entra, a saída não) — exceções: `templates/logo-polijunior.png`, a marca d'água, e `templates/latex/fonts/*.ttf`, as fontes da identidade
 - Gravação e transcrição bruta (ficam no storage, link no frontmatter)
 - Dado de cliente identificável, credencial, valor nominal de proposta
 
