@@ -1,0 +1,40 @@
+id: danilo.calandrelli@polijunior.com.br
+tipo: csd
+card: Design Sprint
+ciclo: 2026.2
+nucleo: NDados
+status: Em Andamento
+link (Notion):
+origem: 
+---
+
+# Matriz CSD
+
+## Certezas
+
+— O material está desatualizado, com cases antigos.
+— O material não está organizado de forma estratégica, faltando uma divisão de cases por setor ou por solução.
+— O material apresenta um portfólio (Inteligência de Negócios) que não é mais utilizado pela empresa.
+— O slide do portfólio de Inteligência Artificial está desatualizado — por exemplo, ainda menciona "Atendimentos Inteligentes", serviço que não é mais oferecido.
+
+## Suposições
+
+— Atualizar visualmente o material melhoraria a percepção do cliente.
+— Remover ou substituir o portfólio de Inteligência de Negócios agregaria valor, já que ele não é mais utilizado e prejudica a apresentação.
+— Incluir slides estratégicos que hoje aparecem apenas nos materiais de proposta (como o de parcerias) causaria uma melhor primeira impressão.
+— Sofisticar alguns termos (ex: Analista → Arquiteto de Soluções em IA / Cientista de Dados) agregaria mais valor ao material.
+— Atualizar o slide de "Problemas e Desafios Comuns" agregaria valor, pois hoje ele limita os problemas do cliente a apenas oito categorias fixas.
+— Substituir os cases de empresas com NDA por outros, mesmo que de empresas menores, traria mais valor e confiança para o cliente.
+— Incluir cases visuais (protótipos) agregaria mais valor na apresentação do material.
+— Não reforçar a Poli Júnior como empresa e sua ligação com a USP é uma oportunidade perdida de construir valor desde o início.
+— Nossos cases têm muito texto, o que dificulta a visualização por parte do cliente.
+— Incluir relatos de clientes sobre a experiência ao longo da parceria agregaria valor ao material.
+— Tornar o material mais específico — tanto em relação a cada portfólio e à abordagem proposta quanto a cada case — agregaria valor para os clientes.
+— A ausência de um fluxograma claro e visual de como o núcleo funciona prejudica a apresentação das nossas soluções.
+
+
+## Dúvidas
+
+— Reestruturar o material vai melhorar a percepção de valor do cliente?
+— Essa melhora vai contribuir para o andamento do processo comercial?
+— Essa melhora vai contribuir para a prospecção (quando mandamos follow up com o material)?

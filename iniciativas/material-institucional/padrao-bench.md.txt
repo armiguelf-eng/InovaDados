@@ -1,0 +1,55 @@
+id: danilo.calandrelli@polijunior.com.br
+tipo: benchmark
+card: Design Sprint
+ciclo: 2026.2
+nucleo: NDados
+status: Em Andamento
+link (Notion):
+entrevistador: Danilo
+entrevistado:
+data: 
+link (Call):
+---
+
+# Perguntas
+
+## O quanto você acha que o material transmite de profundidade e seriedade sobre a Poli Júnior para o clientes antes do NDados?
+<Resposta>
+
+## Quando o cliente não tem uma demanda específica, o material ajuda a direcionar ele para um portfólio?
+<Resposta> 
+
+## Quando foi a última vez que você mapeou uma dor do cliente usando o slide de problemas e desafios comuns?
+<Resposta>
+
+## Quantos dos cases do material você apresenta? Você nota que o cliente reage de forma diferente em relação aos cases?
+<Resposta>
+
+## No geral os clientes estão satisfeitos com a formulação dos cases? Quais são as coisas que eles mais pedem de coisas que não temos no material?
+<Resposta>
+
+## Dentro de ED, CD e IA, tem algum portfólio que a gente vende mais não apresenta tão claramente? E o caso contrário?
+<Resposta>
+
+## Qual a sua opinião geral sobre o material institucional hoje?
+<Resposta>
+
+
+# Síntese
+## Objeções
+
+-
+
+## Surpresas
+
+-
+
+## Oportunidades
+
+-
+
+## Ameaças
+
+-
+
+# Rascunho 
